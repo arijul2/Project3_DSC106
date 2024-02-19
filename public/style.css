@@ -1,0 +1,26 @@
+#shotMap {
+    position: relative;
+    width: 680px;  /* Adjust to your actual pitch width */
+    height: 340px; /* Adjust to your actual pitch height */
+    background-color: gray; /* Dark green to represent the pitch */
+    border: 1px solid white; /* Soccer pitch outline */
+}
+
+.shot {
+    position: absolute;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    /* Add any additional styling for the shots here */
+}
+
+.tooltip {
+    position: absolute;
+    background-color: black;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    /* Additional tooltip styling */
+    pointer-events: none; /* Ignore pointer events */
+    opacity: 0; /* Start hidden */
+    transition: opacity 0.3s; /* Smooth transition for tooltip */
+}
