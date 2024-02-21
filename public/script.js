@@ -1,6 +1,21 @@
 // Load the data from the JSON file
 d3.json('mbappe_shots.json').then(shotsData => {
   const shotMap = d3.select('#shotMap');
+  const shotMapWidth = shotMap.node().clientWidth;
+  const shotMapHeight = shotMap.node().clientHeight;
+
+  let pitch = shotMap.append('svg:svg')  // Use svg:svg instead of just 'svg'
+                   .attr('width', '100%')
+                   .attr('height', '100%');
+  if (pitch.empty()) {
+    pitch = shotMap.append('svg')
+                   .attr('width', shotMapWidth)
+                   .attr('height', shotMapHeight);
+  }
+  // Apply a CSS rotation to the SVG element
+  pitch.style('transform', 'rotate(-90deg)')
+       .style('transform-origin', 'center');
+
   const tooltip = d3.select('body').append('div')
       .attr('class', 'tooltip')
       .style('opacity', 0);
@@ -79,9 +94,10 @@ shotMap.selectAll('.shot')
   });
   
 
+  const fullScreenWidth = window.innerWidth;
+  const fullScreenHeight = window.innerHeight;
   // Add pitch outline and other pitch elements (e.g., center circle, penalty area)
   // Assume shotMap already contains an SVG element
-  const pitch = shotMap.select('svg');
   
   // Draw the pitch outline
   pitch.append('rect')
