@@ -3,7 +3,7 @@
     position: relative;
     width: 100vw;  /* 100% of the viewport width */
     height: 100vh; /* 100% of the viewport height */
-    margin: 0;     /* Remove margin to ensure it takes the full screen */
+    margin: 0 auto;     /* Remove margin to ensure it takes the full screen */
     background-color: rgb(169, 169, 169); /* Dark green to represent the pitch */
     border: 1px solid #fff; /* White border to represent the pitch outline */
     box-sizing: border-box; /* Include border in the width and height calculations */
