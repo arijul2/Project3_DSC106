@@ -109,28 +109,28 @@ d3.json('mbappe_shots.json').then(shotsData => {
 
     // Draw the pitch outline
 pitch.append('rect')
-  .attr('x', 0)
-  .attr('y', 0)
-  .attr('width', width)
-  .attr('height', height)
-  .attr('fill', 'none')
-  .attr('stroke', 'white');
+.attr('x', pitchOutline.x)
+.attr('y', pitchOutline.y)
+.attr('width', pitchOutline.width)
+.attr('height', pitchOutline.height)
+.attr('fill', '#060')
+.attr('stroke', '#FFF');
 
 // Draw the halfway line
 pitch.append('line')
-  .attr('x1', width / 2)
-  .attr('y1', 0)
-  .attr('x2', width / 2)
-  .attr('y2', height)
-  .attr('stroke', 'white');
+.attr('x1', width / 2)
+.attr('y1', 0)
+.attr('x2', width / 2)
+.attr('y2', height)
+.attr('stroke', '#FFF');
 
 // Draw the center circle
 pitch.append('circle')
-  .attr('cx', width / 2)
-  .attr('cy', height / 2)
-  .attr('r', centerCircleRadius)
-  .attr('fill', 'none')
-  .attr('stroke', 'white');
+.attr('cx', width / 2)
+.attr('cy', height / 2)
+.attr('r', width * 0.07) // Radius is 7% of the width
+.attr('fill', 'none')
+.attr('stroke', '#FFF');
 
 // Calculate the y position for the penalty and goal areas
 const penaltyYPosition = (height - penaltyAreaHeight) / 2;
