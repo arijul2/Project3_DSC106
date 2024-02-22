@@ -1,9 +1,17 @@
 // Load the data from the JSON file
 d3.json('mbappe_shots.json').then(shotsData => {
-    const shotMap = d3.select('#shotMap');
-    const tooltip = d3.select('body').append('div')
+    // Ensure the #shotMap div is styled correctly to be relative to the body
+    const shotMap = d3.select('body').append('div')
+        .attr('id', 'shotMap')
+        .style('position', 'relative')
+        .style('width', '100%')
+        .style('height', '100vh');
+    
+        const tooltip = d3.select('body').append('div')
         .attr('class', 'tooltip')
-        .style('opacity', 0);
+        .style('opacity', 0)
+        .style('position', 'absolute') // Position tooltip absolutely to the body
+        .style('pointer-events', 'none'); // Ensure the tooltip does not interfere with mouse events
   
     // Function to calculate the position and size of the shot points
     function calculatePositionAndSize(d) {
@@ -31,15 +39,17 @@ d3.json('mbappe_shots.json').then(shotsData => {
   
   // Create shot points
   shotMap.selectAll('.shot')
-      .data(shotsData)
-      .enter()
-      .append('div')
-      .attr('class', 'shot')
-      .style('left', d => `${calculatePositionAndSize(d).xPosition}px`)
-      .style('top', d => `${calculatePositionAndSize(d).yPosition}px`)
-      .style('width', d => `${calculatePositionAndSize(d).size}px`)
-      .style('height', d => `${calculatePositionAndSize(d).size}px`)
-      .style('background-color', d => colorBasedOnResult(d))
+  .data(shotsData)
+  .enter()
+  .append('div')
+  .attr('class', 'shot')
+  .style('position', 'absolute') // This is crucial for placing the shots
+  .style('left', d => `${calculatePositionAndSize(d).xPosition}px`)
+  .style('top', d => `${calculatePositionAndSize(d).yPosition}px`)
+  .style('width', d => `${calculatePositionAndSize(d).size}px`)
+  .style('height', d => `${calculatePositionAndSize(d).size}px`)
+  .style('border-radius', '50%') // Make the shots circular
+  .style('background-color', d => colorBasedOnResult(d))
       .on('mouseover', function (event, d) {
         // Get the mouse position relative to the page
         const mouseX = event.pageX;
