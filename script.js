@@ -108,6 +108,7 @@ d3.json('mbappe_shots.json').then(shotsData => {
     pitch.append('rect')
       .attr('x', 0)
       .attr('y', 0 - 50)
+      .attr('y', 0)
       .attr('width', width)
       .attr('height', height)
       .attr('fill', 'none')
@@ -170,4 +171,8 @@ d3.json('mbappe_shots.json').then(shotsData => {
       .attr('height', goalAreaHeight)
       .attr('fill', 'none')
       .attr('stroke', 'white');
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 431f3af322c8424bd52c3e03a5072aaf4b66b3c0
