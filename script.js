@@ -1,17 +1,17 @@
 // Load the data from the JSON file
 d3.json('mbappe_shots.json').then(shotsData => {
-    // Ensure the #shotMap div is styled correctly to be relative to the body
+    // Ensure the #shotMap div is styled correctly
     const shotMap = d3.select('body').append('div')
         .attr('id', 'shotMap')
-        .style('position', 'relative')
-        .style('width', '100%')
-        .style('height', '100vh');
-    
-        const tooltip = d3.select('body').append('div')
+        .style('position', 'relative') // This should be 'relative'
+        .style('width', '100vw') // Viewport width
+        .style('height', '100vh'); // Viewport height
+
+    const tooltip = d3.select('body').append('div')
         .attr('class', 'tooltip')
         .style('opacity', 0)
-        .style('position', 'absolute') // Position tooltip absolutely to the body
-        .style('pointer-events', 'none'); // Ensure the tooltip does not interfere with mouse events
+        .style('position', 'absolute')
+        .style('pointer-events', 'none');
   
     // Function to calculate the position and size of the shot points
     function calculatePositionAndSize(d) {
@@ -39,17 +39,17 @@ d3.json('mbappe_shots.json').then(shotsData => {
   
   // Create shot points
   shotMap.selectAll('.shot')
-  .data(shotsData)
-  .enter()
-  .append('div')
-  .attr('class', 'shot')
-  .style('position', 'absolute') // This is crucial for placing the shots
-  .style('left', d => `${calculatePositionAndSize(d).xPosition}px`)
-  .style('top', d => `${calculatePositionAndSize(d).yPosition}px`)
-  .style('width', d => `${calculatePositionAndSize(d).size}px`)
-  .style('height', d => `${calculatePositionAndSize(d).size}px`)
-  .style('border-radius', '50%') // Make the shots circular
-  .style('background-color', d => colorBasedOnResult(d))
+        .data(shotsData)
+        .enter()
+        .append('div')
+        .attr('class', 'shot')
+        .style('position', 'absolute')
+        .style('left', d => `${calculatePositionAndSize(d).xPosition}px`)
+        .style('top', d => `${calculatePositionAndSize(d).yPosition}px`)
+        .style('width', d => `${calculatePositionAndSize(d).size}px`)
+        .style('height', d => `${calculatePositionAndSize(d).size}px`)
+        .style('border-radius', '50%') // Make the shots circular
+        .style('background-color', d => colorBasedOnResult(d))
       .on('mouseover', function (event, d) {
         // Get the mouse position relative to the page
         const mouseX = event.pageX;
@@ -100,12 +100,12 @@ d3.json('mbappe_shots.json').then(shotsData => {
             .style('opacity', 0);
     });
 
-const pitch = shotMap.append('svg')
-    .attr('width', '100%')
-    .attr('height', '100%')
-    .style('position', 'absolute')
-    .style('top', '0')
-    .style('left', '0');
+    const pitch = shotMap.append('svg')
+        .attr('width', '100%')
+        .attr('height', '100%')
+        .style('position', 'absolute')
+        .style('top', '0')
+        .style('left', '0');
   
 // Get the dimensions of the shotMap
 const shotMapWidth = shotMap.node().getBoundingClientRect().width;
@@ -144,49 +144,49 @@ pitch.append('circle')
     .attr('fill', 'none')
     .attr('stroke', '#FFF');
 
-// Draw the penalty areas
-const penaltyAreaWidth = shotMapWidth * 0.14;
-const penaltyAreaHeight = shotMapHeight * 0.18;
-const penaltyAreaY = (shotMapHeight - penaltyAreaHeight) / 2;
+// Corrected dimensions for the penalty areas
+const penaltyAreaWidth = shotMapHeight * 0.18;
+const penaltyAreaHeight = shotMapWidth * 0.14;
+const penaltyAreaY = (shotMapWidth - penaltyAreaWidth) / 2;
 
 // Left penalty area
 pitch.append('rect')
     .attr('x', 0)
     .attr('y', penaltyAreaY)
-    .attr('width', penaltyAreaWidth)
-    .attr('height', penaltyAreaHeight)
+    .attr('width', penaltyAreaHeight)
+    .attr('height', penaltyAreaWidth)
     .attr('fill', 'none')
     .attr('stroke', '#FFF');
 
 // Right penalty area
 pitch.append('rect')
-    .attr('x', shotMapWidth - penaltyAreaWidth)
+    .attr('x', shotMapHeight - penaltyAreaHeight)
     .attr('y', penaltyAreaY)
-    .attr('width', penaltyAreaWidth)
-    .attr('height', penaltyAreaHeight)
+    .attr('width', penaltyAreaHeight)
+    .attr('height', penaltyAreaWidth)
     .attr('fill', 'none')
     .attr('stroke', '#FFF');
 
-// Draw the goal areas
-const goalAreaWidth = shotMapWidth * 0.04;
-const goalAreaHeight = shotMapHeight * 0.08;
-const goalAreaY = (shotMapHeight - goalAreaHeight) / 2;
+// Corrected dimensions for the goal areas
+const goalAreaWidth = shotMapHeight * 0.08;
+const goalAreaHeight = shotMapWidth * 0.04;
+const goalAreaY = (shotMapWidth - goalAreaWidth) / 2;
 
 // Left goal area
 pitch.append('rect')
     .attr('x', 0)
     .attr('y', goalAreaY)
-    .attr('width', goalAreaWidth)
-    .attr('height', goalAreaHeight)
+    .attr('width', goalAreaHeight)
+    .attr('height', goalAreaWidth)
     .attr('fill', 'none')
     .attr('stroke', '#FFF');
 
 // Right goal area
 pitch.append('rect')
-    .attr('x', shotMapWidth - goalAreaWidth)
+    .attr('x', shotMapHeight - goalAreaHeight)
     .attr('y', goalAreaY)
-    .attr('width', goalAreaWidth)
-    .attr('height', goalAreaHeight)
+    .attr('width', goalAreaHeight)
+    .attr('height', goalAreaWidth)
     .attr('fill', 'none')
     .attr('stroke', '#FFF');
 });
