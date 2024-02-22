@@ -108,7 +108,6 @@ d3.json('mbappe_shots.json').then(shotsData => {
     pitch.append('rect')
       .attr('x', 0)
       .attr('y', 0)
-      .attr('y', 0)
       .attr('width', width)
       .attr('height', height)
       .attr('fill', 'none')
