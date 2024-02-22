@@ -30,16 +30,19 @@ d3.json('mbappe_shots.json').then(shotsData => {
   }
   
   // Create shot points
-  shotMap.selectAll('.shot')
-      .data(shotsData)
-      .enter()
-      .append('div')
-      .attr('class', 'shot')
-      .style('left', d => `${calculatePositionAndSize(d).xPosition}px`)
-      .style('top', d => `${calculatePositionAndSize(d).yPosition}px`)
-      .style('width', d => `${calculatePositionAndSize(d).size}px`)
-      .style('height', d => `${calculatePositionAndSize(d).size}px`)
-      .style('background-color', d => colorBasedOnResult(d))
+shotMap.selectAll('.shot')
+.data(shotsData)
+.enter()
+.append('div')
+.attr('class', 'shot')
+.style('position', 'absolute')
+.style('left', d => `${calculatePositionAndSize(d).xPosition}px`)
+.style('top', d => `${calculatePositionAndSize(d).yPosition}px`)
+.style('width', d => `${Math.max(calculatePositionAndSize(d).size, 5)}px`) // Ensure a minimum size
+.style('height', d => `${Math.max(calculatePositionAndSize(d).size, 5)}px`) // Ensure a minimum size
+.style('border-radius', '50%') // Make them circular
+.style('background-color', d => colorBasedOnResult(d))
+.style('z-index', '10') // Ensure the z-index is high enough to be above other elements
       .on('mouseover', function (event, d) {
         // Get the mouse position relative to the page
         const mouseX = event.pageX;
