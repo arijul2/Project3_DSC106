@@ -118,7 +118,7 @@ d3.json('mbappe_shots.json').then(shotsData => {
       .attr('x1', width / 2)
       .attr('y1', 0)
       .attr('x2', width / 2)
-      .attr('y2', height + 1)
+      .attr('y2', height)
       .attr('stroke', 'white');
 
     // Draw the center circle
