@@ -3,16 +3,17 @@ d3.json('mbappe_shots.json').then(shotsData => {
     const shotMap = d3.select('#shotMap');
     const tooltip = d3.select('body').append('div')
         .attr('class', 'tooltip')
-        .style('opacity', 0);
-  
+        .style('opacity', 0) // Use opacity for initial hidden state
+        .style('position', 'absolute'); // Ensure the tooltip is positioned absolutely
+
     // Function to calculate the position and size of the shot points
     function calculatePositionAndSize(d) {
         const xPosition = d.X * shotMap.node().clientWidth;
         const yPosition = (1 - d.Y) * shotMap.node().clientHeight;
-        const size = Math.sqrt(d.xG) * 20 // Adjust the size scaling factor as needed
+        const size = Math.sqrt(d.xG) * 20; // Adjust the size scaling factor as needed
         return { xPosition, yPosition, size };
     }
-  
+
     // Define colors based on the result
     function colorBasedOnResult(d) {
         return d.result === 'Goal' ? 'green' :
@@ -21,74 +22,47 @@ d3.json('mbappe_shots.json').then(shotsData => {
                d.result === 'ShotOnPost' ? 'yellow' :
                d.result === 'BlockedShot' ? 'purple' : 'grey';
     }
-    
-  
+
     function formatDate(dateString) {
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      const event = new Date(dateString);
-      return event.toLocaleDateString('en-GB', options); // 'en-GB' uses day-month-year order
-  }
-  
-  // Create shot points
-  shotMap.selectAll('.shot')
-      .data(shotsData)
-      .enter()
-      .append('div')
-      .attr('class', 'shot')
-      .style('left', d => `${calculatePositionAndSize(d).xPosition}px`)
-      .style('top', d => `${calculatePositionAndSize(d).yPosition}px`)
-      .style('width', d => `${calculatePositionAndSize(d).size}px`)
-      .style('height', d => `${calculatePositionAndSize(d).size}px`)
-      .style('background-color', d => colorBasedOnResult(d))
-      .on('mouseover', function (event, d) {
-        // Get the mouse position relative to the page
-        const mouseX = event.pageX;
-        const mouseY = event.pageY;
-    
-        // Calculate the tooltip position
-        let tooltipX = mouseX;
-        // Offset to show above the cursor; consider the size of the tooltip itself
-        let tooltipY = mouseY - tooltip.node().getBoundingClientRect().height - 10; 
-    
-        // Get the dimensions of the tooltip
-        const tooltipWidth = tooltip.node().getBoundingClientRect().width;
-        const tooltipHeight = tooltip.node().getBoundingClientRect().height;
-    
-        // Get the window width and height
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
-    
-        // Check if the tooltip would go off the right side of the screen
-        if (mouseX + tooltipWidth > windowWidth) {
-            tooltipX = windowWidth - tooltipWidth;
-        }
-    
-        // Check if the tooltip would go off the top of the screen
-        if (tooltipY < 0) {
-            tooltipY = mouseY + 20; // Offset to show below the cursor if going off the top
-        }
-    
-        // Set the tooltip HTML and position
-        tooltip.html(`${d.h_team} ${d.h_goals}-${d.a_goals} ${d.a_team}<br>
-                      ${formatDate(d.date)}<br><hr>
-                      Minute: ${d.minute}<br>
-                      Shot Outcome: ${d.result}<br>
-                      xG: ${d.xG.toFixed(2)}<br>
-                      Assisted by: ${d.player_assisted || 'N/A'}<br>
-                      Shot Type: ${d.shotType}<br>
-                      Situation: ${d.situation}`)
-            .style('left', `${tooltipX}px`)
-            .style('top', `${tooltipY}px`)
-            .transition()
-            .duration(200)
-            .style('opacity', 0.8);
-    })
-    
-    .on('mouseout', function (d) {
-        tooltip.transition()
-            .duration(500)
-            .style('opacity', 0);
-    });
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const event = new Date(dateString);
+        return event.toLocaleDateString('en-GB', options); // 'en-GB' uses day-month-year order
+    }
+
+    // Create shot points
+    shotMap.selectAll('.shot')
+        .data(shotsData)
+        .enter()
+        .append('div')
+        .attr('class', 'shot')
+        .style('position', 'absolute')
+        .style('left', d => `${calculatePositionAndSize(d).xPosition}px`)
+        .style('top', d => `${calculatePositionAndSize(d).yPosition}px`)
+        .style('width', d => `${Math.max(calculatePositionAndSize(d).size, 5)}px`) // Ensure a minimum size
+        .style('height', d => `${Math.max(calculatePositionAndSize(d).size, 5)}px`) // Ensure a minimum size
+        .style('border-radius', '50%') // Make them circular
+        .style('background-color', d => colorBasedOnResult(d))
+        .style('z-index', '10') // Ensure the z-index is high enough to be above other elements
+        .on('mouseover', function (event, d) {
+            tooltip.html(`${d.h_team} ${d.h_goals}-${d.a_goals} ${d.a_team}<br>
+                          ${formatDate(d.date)}<br><hr>
+                          Minute: ${d.minute}<br>
+                          Shot Outcome: ${d.result}<br>
+                          xG: ${d.xG.toFixed(2)}<br>
+                          Assisted by: ${d.player_assisted || 'N/A'}<br>
+                          Shot Type: ${d.shotType}<br>
+                          Situation: ${d.situation}`)
+                .style('left', `${event.pageX + 10}px`) // Slight offset from the cursor
+                .style('top', `${event.pageY + 10}px`) // Slight offset from the cursor
+                .transition()
+                .duration(200)
+                .style('opacity', 1); // Fade in the tooltip
+        })
+        .on('mouseout', function () {
+            tooltip.transition()
+                .duration(500)
+                .style('opacity', 0); // Fade out the tooltip
+        });
 
 const pitch = shotMap.append('svg')
     .attr('width', '100%')
