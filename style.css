@@ -1,0 +1,38 @@
+/* Style for the pitch container */
+#shotMap {
+    position: relative;
+    width: 100vw;  /* 100% of the viewport width */
+    height: 100vh; /* 100% of the viewport height */
+    margin: 0;     /* Remove margin to ensure it takes the full screen */
+    background-color: rgb(169, 169, 169); /* Dark green to represent the pitch */
+    border: 1px solid #fff; /* White border to represent the pitch outline */
+    box-sizing: border-box; /* Include border in the width and height calculations */
+}
+
+/* Style for the shots */   
+.shot {
+    position: absolute;
+    border-radius: 50%; /* Make the shots circular */
+    transform: translate(-50%, -50%); /* Center the shots based on their coordinates */
+    background-color: #ff0; /* Yellow for visibility, adjust as needed */
+    /* Rest of your .shot styles... */
+}
+
+/* Style for the tooltip */
+.tooltip {
+    position: absolute;
+    background-color: #000; /* Black background for the tooltip */
+    color: #fff; /* White text color */
+    padding: 5px 10px; /* Padding inside the tooltip */
+    border-radius: 4px; /* Rounded corners for the tooltip */
+    pointer-events: none; /* Avoid the tooltip interfering with mouse events */
+    opacity: 0; /* Start hidden */
+    transition: opacity 0.3s; /* Fade in/out transition */
+    font-size: 0.8em; /* Adjust the font size as needed */
+}
+
+html, body {
+    height: 100%;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
