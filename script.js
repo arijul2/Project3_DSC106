@@ -7,6 +7,7 @@ d3.json('mbappe_shots.json').then(shotsData => {
     .style('position', 'absolute') // Ensure the tooltip is positioned absolutely
     .style('z-index', '100'); // Ensure the tooltip is above all other elements, including the shots
 
+
     // Function to calculate the position and size of the shot points
     function calculatePositionAndSize(d) {
         const xPosition = d.X * shotMap.node().clientWidth;
@@ -90,7 +91,7 @@ pitch.append('rect')
     .attr('y', pitchOutline.y)
     .attr('width', pitchOutline.width)
     .attr('height', pitchOutline.height)
-    .attr('fill', '#808080')
+    .attr('fill', '#060')
     .attr('stroke', '#FFF');
 
 // Draw the halfway line
