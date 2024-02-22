@@ -2,9 +2,10 @@
 d3.json('mbappe_shots.json').then(shotsData => {
     const shotMap = d3.select('#shotMap');
     const tooltip = d3.select('body').append('div')
-        .attr('class', 'tooltip')
-        .style('opacity', 0) // Use opacity for initial hidden state
-        .style('position', 'absolute'); // Ensure the tooltip is positioned absolutely
+    .attr('class', 'tooltip')
+    .style('opacity', 0) // Use opacity for initial hidden state
+    .style('position', 'absolute') // Ensure the tooltip is positioned absolutely
+    .style('z-index', '100'); // Ensure the tooltip is above all other elements, including the shots
 
     // Function to calculate the position and size of the shot points
     function calculatePositionAndSize(d) {
