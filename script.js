@@ -93,7 +93,7 @@ d3.json('mbappe_shots.json').then(shotsData => {
     // Select the shotMap div and append an SVG element to it
     const pitch = shotMap.append('svg')
       .attr('width', '100%')
-      .attr('height', '100%');
+      .attr('height', '120%');
 
     // Define the pitch's proportions and positions based on the SVG size
     const width = shotMap.node().clientWidth;
@@ -102,7 +102,7 @@ d3.json('mbappe_shots.json').then(shotsData => {
     const penaltyAreaHeight = height * 0.35; // Example: 35% of the total height
     const goalAreaWidth = width * 0.05; // Example: 5% of the total width
     const goalAreaHeight = height * 0.12; // Example: 12% of the total height
-    const centerCircleRadius = width * 0.01; // Example: 7% of the width for the circle radius
+    const centerCircleRadius = width * 0.07; // Example: 7% of the width for the circle radius
 
     // Draw the pitch outline
     pitch.append('rect')
