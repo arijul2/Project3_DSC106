@@ -55,8 +55,8 @@ d3.json('mbappe_shots.json').then(shotsData => {
         const tooltipHeight = tooltip.node().getBoundingClientRect().height;
     
         // Get the window width and height
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
+        const width = window.innerWidth;
+        const height = window.innerHeight;
     
         // Check if the tooltip would go off the right side of the screen
         if (mouseX + tooltipWidth > windowWidth) {
@@ -105,69 +105,65 @@ d3.json('mbappe_shots.json').then(shotsData => {
     const centerCircleRadius = width * 0.07; // Example: 7% of the width for the circle radius
 
     // Draw the pitch outline
-    pitch.append('rect')
-      .attr('x', 0)
-      .attr('y', 0)
-      .attr('width', width)
-      .attr('height', height)
-      .attr('fill', 'none')
-      .attr('stroke', 'white');
+pitch.append('rect')
+.attr('x', 0)
+.attr('y', 0)
+.attr('width', width)
+.attr('height', height)
+.attr('fill', 'none')
+.attr('stroke', 'white');
 
-    // Draw the halfway line
-    pitch.append('line')
-      .attr('x1', width / 2)
-      .attr('y1', 0)
-      .attr('x2', width / 2)
-      .attr('y2', height)
-      .attr('stroke', 'white');
+// Draw the halfway line
+pitch.append('line')
+.attr('x1', width / 2)
+.attr('y1', 0)
+.attr('x2', width / 2)
+.attr('y2', height)
+.attr('stroke', 'white');
 
-    // Draw the center circle
-    pitch.append('circle')
-      .attr('cx', width / 2)
-      .attr('cy', height / 2)
-      .attr('r', centerCircleRadius)
-      .attr('fill', 'none')
-      .attr('stroke', 'white');
+// Draw the center circle
+pitch.append('circle')
+.attr('cx', width / 2)
+.attr('cy', height / 2)
+.attr('r', centerCircleRadius)
+.attr('fill', 'none')
+.attr('stroke', 'white');
 
-    // Draw the penalty areas
-    const penaltyYPosition = (height - penaltyAreaHeight) / 2;
-    
-    // Left penalty area
-    pitch.append('rect')
-      .attr('x', 0)
-      .attr('y', penaltyYPosition)
-      .attr('width', penaltyAreaWidth)
-      .attr('height', penaltyAreaHeight)
-      .attr('fill', 'none')
-      .attr('stroke', 'white');
+// Calculate the y position for the penalty and goal areas
+const penaltyYPosition = (height - penaltyAreaHeight) / 2;
+const goalYPosition = (height - goalAreaHeight) / 2;
 
-    // Right penalty area
-    pitch.append('rect')
-      .attr('x', width - penaltyAreaWidth)
-      .attr('y', penaltyYPosition)
-      .attr('width', penaltyAreaWidth)
-      .attr('height', penaltyAreaHeight)
-      .attr('fill', 'none')
-      .attr('stroke', 'white');
+// Draw the penalty areas
+pitch.append('rect')
+.attr('x', 0)
+.attr('y', penaltyYPosition)
+.attr('width', penaltyAreaWidth)
+.attr('height', penaltyAreaHeight)
+.attr('fill', 'none')
+.attr('stroke', 'white');
 
-    // Draw the goal areas (smaller rectangles inside the penalty areas)
-    const goalYPosition = (height - goalAreaHeight) / 2;
+pitch.append('rect')
+.attr('x', width - penaltyAreaWidth)
+.attr('y', penaltyYPosition)
+.attr('width', penaltyAreaWidth)
+.attr('height', penaltyAreaHeight)
+.attr('fill', 'none')
+.attr('stroke', 'white');
 
-    // Left goal area
-    pitch.append('rect')
-      .attr('x', 0)
-      .attr('y', goalYPosition)
-      .attr('width', goalAreaWidth)
-      .attr('height', goalAreaHeight)
-      .attr('fill', 'none')
-      .attr('stroke', 'white');
+// Draw the goal areas
+pitch.append('rect')
+.attr('x', 0)
+.attr('y', goalYPosition)
+.attr('width', goalAreaWidth)
+.attr('height', goalAreaHeight)
+.attr('fill', 'none')
+.attr('stroke', 'white');
 
-    // Right goal area
-    pitch.append('rect')
-      .attr('x', width - goalAreaWidth)
-      .attr('y', goalYPosition)
-      .attr('width', goalAreaWidth)
-      .attr('height', goalAreaHeight)
-      .attr('fill', 'none')
-      .attr('stroke', 'white');
+pitch.append('rect')
+.attr('x', width - goalAreaWidth)
+.attr('y', goalYPosition)
+.attr('width', goalAreaWidth)
+.attr('height', goalAreaHeight)
+.attr('fill', 'none')
+.attr('stroke', 'white');
 });
