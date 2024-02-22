@@ -46,6 +46,7 @@ d3.json('mbappe_shots.json').then(shotsData => {
         .style('background-color', d => colorBasedOnResult(d))
         .style('z-index', '10') // Ensure the z-index is high enough to be above other elements
         .on('mouseover', function (event, d) {
+            // Basic tooltip content setup
             tooltip.html(`${d.h_team} ${d.h_goals}-${d.a_goals} ${d.a_team}<br>
                           ${formatDate(d.date)}<br><hr>
                           Minute: ${d.minute}<br>
@@ -54,18 +55,25 @@ d3.json('mbappe_shots.json').then(shotsData => {
                           Assisted by: ${d.player_assisted || 'N/A'}<br>
                           Shot Type: ${d.shotType}<br>
                           Situation: ${d.situation}`)
-                .style('left', `${event.pageX + 10}px`) // Slight offset from the cursor
-                .style('top', `${event.pageY + 10}px`) // Slight offset from the cursor
                 .transition()
                 .duration(200)
                 .style('opacity', 1); // Fade in the tooltip
-        })
-        .on('mouseout', function () {
-            tooltip.transition()
-                .duration(500)
-                .style('opacity', 0); // Fade out the tooltip
-        });
-
+        
+            // Calculate tooltip position with offset
+            let tooltipX = event.pageX + 10; // Slight offset from the cursor
+            const tooltipY = event.pageY + 10; // Slight offset from the cursor
+        
+            // Adjust if the tooltip goes off the right side of the window
+            const tooltipWidth = tooltip.node().getBoundingClientRect().width;
+            const windowWidth = window.innerWidth;
+            if (tooltipX + tooltipWidth > windowWidth) {
+                tooltipX = event.pageX - tooltipWidth - 10; // Adjust to show tooltip to the left of the cursor
+            }
+        
+            // Apply the calculated positions
+            tooltip.style('left', `${tooltipX}px`)
+                   .style('top', `${tooltipY}px`);
+        })        
 const pitch = shotMap.append('svg')
     .attr('width', '100%')
     .attr('height', '100%')
