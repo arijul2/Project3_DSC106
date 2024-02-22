@@ -90,122 +90,93 @@ d3.json('mbappe_shots.json').then(shotsData => {
             .style('opacity', 0);
     });
 
-    const pitch = shotMap.append('svg')
-    .attr('width', window.innerWidth)
-    .attr('height', window.innerHeight)
+const pitch = shotMap.append('svg')
+    .attr('width', '100%')
+    .attr('height', '100%')
     .style('position', 'absolute')
     .style('top', '0')
     .style('left', '0');
   
-  // Calculate the dimensions and positions for the pitch elements
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-  
-  // Define the pitch's proportions based on the SVG size
-  const pitchOutline = {
+// Get the dimensions of the shotMap
+const shotMapWidth = shotMap.node().getBoundingClientRect().width;
+const shotMapHeight = shotMap.node().getBoundingClientRect().height;
+
+// Define the pitch's proportions based on the shotMap size
+const pitchOutline = {
     x: 0,
     y: 0,
-    width: width,
-    height: height
-  };
-  
-  // Draw the pitch outline
-  pitch.append('rect')
+    width: shotMapWidth,
+    height: shotMapHeight
+};
+
+// Draw the pitch outline
+pitch.append('rect')
     .attr('x', pitchOutline.x)
     .attr('y', pitchOutline.y)
     .attr('width', pitchOutline.width)
     .attr('height', pitchOutline.height)
     .attr('fill', '#060')
     .attr('stroke', '#FFF');
-  
-  // Draw the halfway line
-  pitch.append('line')
-    .attr('x1', width / 2)
+
+// Draw the halfway line
+pitch.append('line')
+    .attr('x1', shotMapWidth / 2)
     .attr('y1', 0)
-    .attr('x2', width / 2)
-    .attr('y2', height)
+    .attr('x2', shotMapWidth / 2)
+    .attr('y2', shotMapHeight)
     .attr('stroke', '#FFF');
-  
-  // Draw the center circle
-  pitch.append('circle')
-    .attr('cx', width / 2)
-    .attr('cy', height / 2)
-    .attr('r', width * 0.07) // Radius is 7% of the width
+
+// Draw the center circle
+pitch.append('circle')
+    .attr('cx', shotMapWidth / 2)
+    .attr('cy', shotMapHeight / 2)
+    .attr('r', shotMapWidth * 0.07) // Radius is 7% of the width
     .attr('fill', 'none')
     .attr('stroke', '#FFF');
-  
-  // Draw the penalty areas
-  const penaltyAreaWidth = width * 0.14;
-  const penaltyAreaHeight = height * 0.18;
-  const penaltyAreaX = 0;
-  const penaltyAreaY = (height - penaltyAreaHeight) / 2;
-  
-  // Left penalty area
-  pitch.append('rect')
-    .attr('x', penaltyAreaX)
+
+// Draw the penalty areas
+const penaltyAreaWidth = shotMapWidth * 0.14;
+const penaltyAreaHeight = shotMapHeight * 0.18;
+const penaltyAreaY = (shotMapHeight - penaltyAreaHeight) / 2;
+
+// Left penalty area
+pitch.append('rect')
+    .attr('x', 0)
     .attr('y', penaltyAreaY)
     .attr('width', penaltyAreaWidth)
     .attr('height', penaltyAreaHeight)
     .attr('fill', 'none')
     .attr('stroke', '#FFF');
-  
-  // Right penalty area
-  pitch.append('rect')
-    .attr('x', width - penaltyAreaWidth)
+
+// Right penalty area
+pitch.append('rect')
+    .attr('x', shotMapWidth - penaltyAreaWidth)
     .attr('y', penaltyAreaY)
     .attr('width', penaltyAreaWidth)
     .attr('height', penaltyAreaHeight)
     .attr('fill', 'none')
     .attr('stroke', '#FFF');
-  
-  // Draw the goal areas
-  const goalAreaWidth = width * 0.04;
-  const goalAreaHeight = height * 0.08;
-  const goalAreaX = 0;
-  const goalAreaY = (height - goalAreaHeight) / 2;
-  
-  // Left goal area
-  pitch.append('rect')
-    .attr('x', goalAreaX)
+
+// Draw the goal areas
+const goalAreaWidth = shotMapWidth * 0.04;
+const goalAreaHeight = shotMapHeight * 0.08;
+const goalAreaY = (shotMapHeight - goalAreaHeight) / 2;
+
+// Left goal area
+pitch.append('rect')
+    .attr('x', 0)
     .attr('y', goalAreaY)
     .attr('width', goalAreaWidth)
     .attr('height', goalAreaHeight)
     .attr('fill', 'none')
     .attr('stroke', '#FFF');
-  
-  // Right goal area
-  pitch.append('rect')
-    .attr('x', width - goalAreaWidth)
+
+// Right goal area
+pitch.append('rect')
+    .attr('x', shotMapWidth - goalAreaWidth)
     .attr('y', goalAreaY)
     .attr('width', goalAreaWidth)
     .attr('height', goalAreaHeight)
-    .attr('fill', 'none')
-    .attr('stroke', '#FFF');
-  
-  // Draw the corners
-  const cornerCircleRadius = width * 0.01; // Radius for corner circle
-  
-  // Top left corner
-  pitch.append('circle')
-    .attr('cx', penaltyAreaX)
-    .attr('cy', penaltyAreaY)
-    .attr('r', cornerCircleRadius)
-    .attr('fill', 'none')
-    .attr('stroke', '#FFF');
-  
-  // Top right corner
-  pitch.append('circle')
-    .attr('cx', width)
-    .attr('cy', penaltyAreaY)
-    .attr('r', cornerCircleRadius)
-    .attr('fill', 'none')
-    .attr('stroke', '#FFF');
-  
-  // Bottom left corner
-  pitch.append('circle')
-    .attr('cx', penaltyAreaX)
-    .attr('cy', height - penaltyAreaY)
-    .attr('r', cornerCircleRadius)
     .attr('fill', 'none')
     .attr('stroke', '#FFF');
 });
