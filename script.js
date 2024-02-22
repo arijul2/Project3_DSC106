@@ -89,7 +89,7 @@ pitch.append('rect')
     .attr('y', pitchOutline.y)
     .attr('width', pitchOutline.width)
     .attr('height', pitchOutline.height)
-    .attr('fill', '#060')
+    .attr('fill', '#808080')
     .attr('stroke', '#FFF');
 
 // Draw the halfway line
