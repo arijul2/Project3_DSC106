@@ -133,8 +133,6 @@ pitch.append('circle')
 .attr('stroke', '#FFF');
 
 // Draw the penalty areas
-const penaltyAreaWidth = width * 0.14;
-const penaltyAreaHeight = height * 0.18;
 const penaltyAreaX = 0;
 const penaltyAreaY = (height - penaltyAreaHeight) / 2;
 
@@ -157,8 +155,6 @@ pitch.append('rect')
   .attr('stroke', '#FFF');
 
 // Draw the goal areas
-const goalAreaWidth = width * 0.04;
-const goalAreaHeight = height * 0.08;
 const goalAreaX = 0;
 const goalAreaY = (height - goalAreaHeight) / 2;
 
@@ -177,6 +173,33 @@ pitch.append('rect')
   .attr('y', goalAreaY)
   .attr('width', goalAreaWidth)
   .attr('height', goalAreaHeight)
+  .attr('fill', 'none')
+  .attr('stroke', '#FFF');
+
+// Draw the corners
+const cornerCircleRadius = width * 0.01; // Radius for corner circle
+
+// Top left corner
+pitch.append('circle')
+  .attr('cx', penaltyAreaX)
+  .attr('cy', penaltyAreaY)
+  .attr('r', cornerCircleRadius)
+  .attr('fill', 'none')
+  .attr('stroke', '#FFF');
+
+// Top right corner
+pitch.append('circle')
+  .attr('cx', width)
+  .attr('cy', penaltyAreaY)
+  .attr('r', cornerCircleRadius)
+  .attr('fill', 'none')
+  .attr('stroke', '#FFF');
+
+// Bottom left corner
+pitch.append('circle')
+  .attr('cx', penaltyAreaX)
+  .attr('cy', height - penaltyAreaY)
+  .attr('r', cornerCircleRadius)
   .attr('fill', 'none')
   .attr('stroke', '#FFF');
 });
