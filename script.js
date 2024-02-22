@@ -129,7 +129,7 @@ pitch.append('circle')
 
 // Draw the penalty areas
 const penaltyAreaWidth = shotMapWidth * 0.18;
-const penaltyAreaHeight = shotMapHeight * 0.35;
+const penaltyAreaHeight = shotMapHeight * 0.50;
 const penaltyAreaY = (shotMapHeight - penaltyAreaHeight) / 2;
 
 // Left penalty area
@@ -152,7 +152,7 @@ pitch.append('rect')
 
 // Draw the goal areas
 const goalAreaWidth = shotMapWidth * 0.06;
-const goalAreaHeight = shotMapHeight * 0.14;
+const goalAreaHeight = shotMapHeight * 0.25;
 const goalAreaY = (shotMapHeight - goalAreaHeight) / 2;
 
 // Left goal area
