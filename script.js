@@ -136,7 +136,7 @@ const penaltyAreaY = (shotMapHeight - penaltyAreaHeight) / 2;
 pitch.append('rect')
     .attr('x', 0)
     .attr('y', penaltyAreaY)
-    .attr('width', penaltyAreaWidth)
+    .attr('width', penaltyAreaWidth*2)
     .attr('height', penaltyAreaHeight)
     .attr('fill', 'none')
     .attr('stroke', '#FFF');
@@ -145,7 +145,7 @@ pitch.append('rect')
 pitch.append('rect')
     .attr('x', shotMapWidth - penaltyAreaWidth)
     .attr('y', penaltyAreaY)
-    .attr('width', penaltyAreaWidth)
+    .attr('width', penaltyAreaWidth*2)
     .attr('height', penaltyAreaHeight)
     .attr('fill', 'none')
     .attr('stroke', '#FFF');
