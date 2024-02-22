@@ -43,55 +43,44 @@ shotMap.selectAll('.shot')
 .style('border-radius', '50%') // Make them circular
 .style('background-color', d => colorBasedOnResult(d))
 .style('z-index', '10') // Ensure the z-index is high enough to be above other elements
-      .on('mouseover', function (event, d) {
-        // Get the mouse position relative to the page
-        const mouseX = event.pageX;
-        const mouseY = event.pageY;
-    
-        // Calculate the tooltip position
-        let tooltipX = mouseX;
-        // Offset to show above the cursor; consider the size of the tooltip itself
-        let tooltipY = mouseY - tooltip.node().getBoundingClientRect().height - 10; 
-    
-        // Get the dimensions of the tooltip
-        const tooltipWidth = tooltip.node().getBoundingClientRect().width;
-        const tooltipHeight = tooltip.node().getBoundingClientRect().height;
-    
-        // Get the window width and height
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-    
-        // Check if the tooltip would go off the right side of the screen
-        if (mouseX + tooltipWidth > windowWidth) {
-            tooltipX = windowWidth - tooltipWidth;
-        }
-    
-        // Check if the tooltip would go off the top of the screen
-        if (tooltipY < 0) {
-            tooltipY = mouseY + 20; // Offset to show below the cursor if going off the top
-        }
-    
-        // Set the tooltip HTML and position
-        tooltip.html(`${d.h_team} ${d.h_goals}-${d.a_goals} ${d.a_team}<br>
-                      ${formatDate(d.date)}<br><hr>
-                      Minute: ${d.minute}<br>
-                      Shot Outcome: ${d.result}<br>
-                      xG: ${d.xG.toFixed(2)}<br>
-                      Assisted by: ${d.player_assisted || 'N/A'}<br>
-                      Shot Type: ${d.shotType}<br>
-                      Situation: ${d.situation}`)
-            .style('left', `${tooltipX}px`)
-            .style('top', `${tooltipY}px`)
-            .transition()
-            .duration(200)
-            .style('opacity', 0.8);
-    })
-    
-    .on('mouseout', function (d) {
-        tooltip.transition()
-            .duration(500)
-            .style('opacity', 0);
-    });
+.on('mouseover', function (event, d) {
+    const mouseX = event.pageX;
+    const mouseY = event.pageY;
+
+    // Calculate the tooltip position
+    let tooltipX = mouseX + 10; // Slight offset from the cursor
+    let tooltipY = mouseY - 10; // Slight offset from the cursor
+
+    // Ensure tooltip doesn't go off the right side of the screen
+    if (tooltipX + tooltip.node().getBoundingClientRect().width > width) {
+        tooltipX = width - tooltip.node().getBoundingClientRect().width - 20; // Adjust based on your tooltip width
+    }
+
+    // Ensure tooltip doesn't go off the top of the screen
+    if (tooltipY < 0) {
+        tooltipY = mouseY + 20; // Offset to show below the cursor if going off the top
+    }
+
+    // Set the tooltip HTML and position
+    tooltip.html(`${d.h_team} ${d.h_goals}-${d.a_goals} ${d.a_team}<br>
+                  ${formatDate(d.date)}<br><hr>
+                  Minute: ${d.minute}<br>
+                  Shot Outcome: ${d.result}<br>
+                  xG: ${d.xG.toFixed(2)}<br>
+                  Assisted by: ${d.player_assisted || 'N/A'}<br>
+                  Shot Type: ${d.shotType}<br>
+                  Situation: ${d.situation}`)
+        .style('left', `${tooltipX}px`)
+        .style('top', `${tooltipY}px`)
+        .transition()
+        .duration(200)
+        .style('opacity', 1); // Make the tooltip visible
+})
+.on('mouseout', function () {
+    tooltip.transition()
+        .duration(500)
+        .style('opacity', 0); // Hide the tooltip
+});
 
 const pitch = shotMap.append('svg')
     .attr('width', '100%')
