@@ -172,34 +172,33 @@ pitch.append('rect')
     .attr('height', goalAreaHeight)
     .attr('fill', 'none')
     .attr('stroke', '#FFF');
-
-// Assuming you have a margin object defined for spacing
-const margin = { top: 10, right: 30, bottom: 10, left: 10 };
-
+// Create the legend group
 const legend = pitch.append('g')
-  .attr('class', 'legend')
-  .attr('transform', `translate(${shotMapWidth - margin.right}, ${margin.top})`);
+    .attr('class', 'legend')
+    .attr('transform', `translate(${shotMapWidth - 200}, 30)`); // Position top right
 
-legend.selectAll(null)
-  .data(legendItems)
-  .enter()
-  .append('g')
-  .attr('class', 'legend-item')
-  .attr('transform', (d, i) => `translate(0, ${i * 20})`) // This spaces legend items 20 pixels apart
-  .each(function(d, i) {
-    d3.select(this).append('circle') // Append the colored circle
-      .attr('r', 5) // Radius of legend circles
-      .attr('cx', 0)
-      .attr('cy', 0)
-      .attr('fill', d.color);
+// Add legend entries
+legend.selectAll('g')
+    .data(legendData)
+    .enter()
+    .append('g')
+    .attr('class', 'legend-entry')
+    .attr('transform', (d, i) => `translate(0, ${i * 25})`) // Stack the legend entries vertically
+    .each(function(d) {
+        // Append a colored circle to each legend entry
+        d3.select(this).append('circle')
+            .attr('cx', 10)
+            .attr('cy', 10)
+            .attr('r', 5)
+            .attr('fill', d.color);
 
-    d3.select(this).append('text') // Append the text
-      .attr('x', 10) // Space the text 10 pixels to the right of the circle
-      .attr('y', 5) // Vertically center text with the circle
-      .text(d.text)
-      .attr('alignment-baseline', 'central')
-      .style('font-size', '12px') // Adjust font size as needed
-      .attr('fill', '#FFF'); // Text color
-  });
+        // Append text to each legend entry
+        d3.select(this).append('text')
+            .attr('x', 30)
+            .attr('y', 15)
+            .text(d.text)
+            .attr('fill', 'white') // Color the text for visibility depending on your background
+            .attr('font-size', '12px');
+    });
 
 });
