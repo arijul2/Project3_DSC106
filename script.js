@@ -30,38 +30,66 @@ d3.json('mbappe_shots.json').then(shotsData => {
   }
   
   // Create shot points
-shotMap.selectAll('.shot')
-.data(shotsData)
-.enter()
-.append('div')
-.attr('class', 'shot')
-.style('position', 'absolute')
-.style('left', d => `${calculatePositionAndSize(d).xPosition}px`)
-.style('top', d => `${calculatePositionAndSize(d).yPosition}px`)
-.style('width', d => `${Math.max(calculatePositionAndSize(d).size, 5)}px`) // Ensure a minimum size
-.style('height', d => `${Math.max(calculatePositionAndSize(d).size, 5)}px`) // Ensure a minimum size
-.style('border-radius', '50%') // Make them circular
-.style('background-color', d => colorBasedOnResult(d))
-.style('z-index', '10') // Ensure the z-index is high enough to be above other elements
-.on('mouseover', function (event, d) {
-    tooltip.style('visibility', 'visible'); // Make tooltip visible
+  shotMap.selectAll('.shot')
+      .data(shotsData)
+      .enter()
+      .append('div')
+      .attr('class', 'shot')
+      .style('left', d => `${calculatePositionAndSize(d).xPosition}px`)
+      .style('top', d => `${calculatePositionAndSize(d).yPosition}px`)
+      .style('width', d => `${calculatePositionAndSize(d).size}px`)
+      .style('height', d => `${calculatePositionAndSize(d).size}px`)
+      .style('background-color', d => colorBasedOnResult(d))
+      .on('mouseover', function (event, d) {
+        // Get the mouse position relative to the page
+        const mouseX = event.pageX;
+        const mouseY = event.pageY;
+    
+        // Calculate the tooltip position
+        let tooltipX = mouseX;
+        // Offset to show above the cursor; consider the size of the tooltip itself
+        let tooltipY = mouseY - tooltip.node().getBoundingClientRect().height - 10; 
+    
+        // Get the dimensions of the tooltip
+        const tooltipWidth = tooltip.node().getBoundingClientRect().width;
+        const tooltipHeight = tooltip.node().getBoundingClientRect().height;
+    
+        // Get the window width and height
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+    
+        // Check if the tooltip would go off the right side of the screen
+        if (mouseX + tooltipWidth > windowWidth) {
+            tooltipX = windowWidth - tooltipWidth;
+        }
+    
+        // Check if the tooltip would go off the top of the screen
+        if (tooltipY < 0) {
+            tooltipY = mouseY + 20; // Offset to show below the cursor if going off the top
+        }
+    
+        // Set the tooltip HTML and position
+        tooltip.html(`${d.h_team} ${d.h_goals}-${d.a_goals} ${d.a_team}<br>
+                      ${formatDate(d.date)}<br><hr>
+                      Minute: ${d.minute}<br>
+                      Shot Outcome: ${d.result}<br>
+                      xG: ${d.xG.toFixed(2)}<br>
+                      Assisted by: ${d.player_assisted || 'N/A'}<br>
+                      Shot Type: ${d.shotType}<br>
+                      Situation: ${d.situation}`)
+            .style('left', `${tooltipX}px`)
+            .style('top', `${tooltipY}px`)
+            .transition()
+            .duration(200)
+            .style('opacity', 0.8);
+    })
+    
+    .on('mouseout', function (d) {
+        tooltip.transition()
+            .duration(500)
+            .style('opacity', 0);
+    });
 
-    const tooltipHtml = `${d.h_team} ${d.h_goals}-${d.a_goals} ${d.a_team}<br>
-                         ${formatDate(d.date)}<br><hr>
-                         Minute: ${d.minute}<br>
-                         Shot Outcome: ${d.result}<br>
-                         xG: ${d.xG.toFixed(2)}<br>
-                         Assisted by: ${d.player_assisted || 'N/A'}<br>
-                         Shot Type: ${d.shotType}<br>
-                         Situation: ${d.situation}`;
-
-    tooltip.html(tooltipHtml)
-           .style('left', `${event.pageX + 10}px`) // Slight offset from cursor
-           .style('top', `${event.pageY - 10}px`); // Slight offset from cursor
-})
-.on('mouseout', function () {
-    tooltip.style('visibility', 'hidden'); // Hide tooltip on mouseout
-});
 const pitch = shotMap.append('svg')
     .attr('width', '100%')
     .attr('height', '100%')
