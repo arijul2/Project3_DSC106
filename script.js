@@ -135,23 +135,23 @@ const penaltyAreaY = (shotMapHeight - penaltyAreaHeight) / 2;
 // Left penalty area
 pitch.append('rect')
     .attr('x', 0)
-    .attr('y', penaltyAreaY)
+    .attr('y', penaltyAreaY*2)
     .attr('width', penaltyAreaWidth*2)
-    .attr('height', penaltyAreaHeight)
+    .attr('height', penaltyAreaHeight*2)
     .attr('fill', 'none')
     .attr('stroke', '#FFF');
 
 // Right penalty area
 pitch.append('rect')
     .attr('x', shotMapWidth - penaltyAreaWidth)
-    .attr('y', penaltyAreaY)
+    .attr('y', penaltyAreaY*2)
     .attr('width', penaltyAreaWidth*2)
-    .attr('height', penaltyAreaHeight)
+    .attr('height', penaltyAreaHeight*2)
     .attr('fill', 'none')
     .attr('stroke', '#FFF');
 
 // Draw the goal areas
-const goalAreaWidth = shotMapWidth * 0.04;
+const goalAreaWidth = shotMapWidth * 0.08;
 const goalAreaHeight = shotMapHeight * 0.08;
 const goalAreaY = (shotMapHeight - goalAreaHeight) / 2;
 
