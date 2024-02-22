@@ -82,6 +82,12 @@ d3.json('mbappe_shots.json').then(shotsData => {
             // Apply the calculated positions
             tooltip.style('left', `${tooltipX}px`)
                    .style('top', `${tooltipY}px`);
+            
+            .on('mouseout', function (d) {
+            tooltip.transition()
+            .duration(500)
+            .style('opacity', 0);
+    });
         })        
 const pitch = shotMap.append('svg')
     .attr('width', '100%')
