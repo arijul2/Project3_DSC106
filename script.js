@@ -83,12 +83,14 @@ d3.json('mbappe_shots.json').then(shotsData => {
             tooltip.style('left', `${tooltipX}px`)
                    .style('top', `${tooltipY}px`);
             
-            .on('mouseout', function (d) {
-            tooltip.transition()
-            .duration(500)
-            .style('opacity', 0);
+        })
+    .on('mouseout', function () {
+        // Hide the tooltip when the mouse moves out of a shot point
+        tooltip.transition()
+               .duration(500)
+               .style('opacity', 0);
     });
-        })        
+    
 const pitch = shotMap.append('svg')
     .attr('width', '100%')
     .attr('height', '100%')
