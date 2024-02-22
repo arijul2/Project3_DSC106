@@ -132,41 +132,51 @@ pitch.append('circle')
 .attr('fill', 'none')
 .attr('stroke', '#FFF');
 
-// Calculate the y position for the penalty and goal areas
-const penaltyYPosition = (height - penaltyAreaHeight) / 2;
-const goalYPosition = (height - goalAreaHeight) / 2;
-
 // Draw the penalty areas
+const penaltyAreaWidth = width * 0.14;
+const penaltyAreaHeight = height * 0.18;
+const penaltyAreaX = 0;
+const penaltyAreaY = (height - penaltyAreaHeight) / 2;
+
+// Left penalty area
 pitch.append('rect')
-  .attr('x', 0)
-  .attr('y', penaltyYPosition)
+  .attr('x', penaltyAreaX)
+  .attr('y', penaltyAreaY)
   .attr('width', penaltyAreaWidth)
   .attr('height', penaltyAreaHeight)
   .attr('fill', 'none')
-  .attr('stroke', 'white');
+  .attr('stroke', '#FFF');
 
+// Right penalty area
 pitch.append('rect')
   .attr('x', width - penaltyAreaWidth)
-  .attr('y', penaltyYPosition)
+  .attr('y', penaltyAreaY)
   .attr('width', penaltyAreaWidth)
   .attr('height', penaltyAreaHeight)
   .attr('fill', 'none')
-  .attr('stroke', 'white');
+  .attr('stroke', '#FFF');
 
 // Draw the goal areas
+const goalAreaWidth = width * 0.04;
+const goalAreaHeight = height * 0.08;
+const goalAreaX = 0;
+const goalAreaY = (height - goalAreaHeight) / 2;
+
+// Left goal area
 pitch.append('rect')
-  .attr('x', 0)
-  .attr('y', goalYPosition)
+  .attr('x', goalAreaX)
+  .attr('y', goalAreaY)
   .attr('width', goalAreaWidth)
   .attr('height', goalAreaHeight)
   .attr('fill', 'none')
-  .attr('stroke', 'white');
+  .attr('stroke', '#FFF');
 
+// Right goal area
 pitch.append('rect')
   .attr('x', width - goalAreaWidth)
-  .attr('y', goalYPosition)
+  .attr('y', goalAreaY)
   .attr('width', goalAreaWidth)
   .attr('height', goalAreaHeight)
   .attr('fill', 'none')
-  .attr('stroke', 'white');
+  .attr('stroke', '#FFF');
 });
