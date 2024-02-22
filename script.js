@@ -21,6 +21,7 @@ d3.json('mbappe_shots.json').then(shotsData => {
              d.result === 'ShotOnPost' ? 'yellow' :
              d.result === 'BlockedShot' ? 'purple' : 'grey';
   }
+  
 
   function formatDate(dateString) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -141,5 +142,4 @@ pitch.append('rect')
     .attr('height', shotMap.node().clientHeight / 8) // Goal box height
     .attr('fill', 'none')
     .attr('stroke', 'white');
-
 });
