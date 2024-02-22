@@ -18,17 +18,15 @@
     /* Rest of your .shot styles... */
 }
 
-/* Style for the tooltip */
 .tooltip {
     position: absolute;
-    background-color: #000; /* Black background for the tooltip */
-    color: #fff; /* White text color */
-    padding: 5px 10px; /* Padding inside the tooltip */
-    border-radius: 4px; /* Rounded corners for the tooltip */
-    pointer-events: none; /* Avoid the tooltip interfering with mouse events */
-    opacity: 0; /* Start hidden */
-    transition: opacity 0.3s; /* Fade in/out transition */
-    font-size: 0.8em; /* Adjust the font size as needed */
+    text-align: center;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    pointer-events: none; /* Tooltip should not interfere with other mouse events */
+    visibility: hidden; /* Start with tooltip hidden */
 }
 
 html, body {
