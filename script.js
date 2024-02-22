@@ -93,7 +93,7 @@ d3.json('mbappe_shots.json').then(shotsData => {
     // Select the shotMap div and append an SVG element to it
     const pitch = shotMap.append('svg')
       .attr('width', '100%')
-      .attr('height', '120%');
+      .attr('height', '100%');
 
     // Define the pitch's proportions and positions based on the SVG size
     const width = shotMap.node().clientWidth;
@@ -118,7 +118,7 @@ d3.json('mbappe_shots.json').then(shotsData => {
       .attr('x1', width / 2)
       .attr('y1', 0)
       .attr('x2', width / 2)
-      .attr('y2', height)
+      .attr('y2', height + 1)
       .attr('stroke', 'white');
 
     // Draw the center circle
