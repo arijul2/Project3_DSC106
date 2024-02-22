@@ -25,6 +25,15 @@ d3.json('mbappe_shots.json').then(shotsData => {
                d.result === 'BlockedShot' ? 'purple' : 'grey';
     }
 
+    const legendItems = [
+      { color: 'green', text: 'Goal' },
+      { color: 'darkblue', text: 'Saved Shot' },
+      { color: 'red', text: 'Missed Shots' },
+      { color: 'yellow', text: 'Shot On Post' },
+      { color: 'purple', text: 'Blocked Shot' }
+    ];
+
+
     function formatDate(dateString) {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         const event = new Date(dateString);
@@ -163,4 +172,34 @@ pitch.append('rect')
     .attr('height', goalAreaHeight)
     .attr('fill', 'none')
     .attr('stroke', '#FFF');
+
+// Assuming you have a margin object defined for spacing
+const margin = { top: 10, right: 30, bottom: 10, left: 10 };
+
+const legend = pitch.append('g')
+  .attr('class', 'legend')
+  .attr('transform', `translate(${shotMapWidth - margin.right}, ${margin.top})`);
+
+legend.selectAll(null)
+  .data(legendItems)
+  .enter()
+  .append('g')
+  .attr('class', 'legend-item')
+  .attr('transform', (d, i) => `translate(0, ${i * 20})`) // This spaces legend items 20 pixels apart
+  .each(function(d, i) {
+    d3.select(this).append('circle') // Append the colored circle
+      .attr('r', 5) // Radius of legend circles
+      .attr('cx', 0)
+      .attr('cy', 0)
+      .attr('fill', d.color);
+
+    d3.select(this).append('text') // Append the text
+      .attr('x', 10) // Space the text 10 pixels to the right of the circle
+      .attr('y', 5) // Vertically center text with the circle
+      .text(d.text)
+      .attr('alignment-baseline', 'central')
+      .style('font-size', '12px') // Adjust font size as needed
+      .attr('fill', '#FFF'); // Text color
+  });
+
 });
