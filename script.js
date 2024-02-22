@@ -66,8 +66,8 @@ shotMap.selectAll('.shot')
           tooltipY = mouseY - tooltipHeight;
       }
   
-      tooltip.html(`Result: ${d.h_team} ${d.h_goals}-${d.a_goals} ${d.a_team}<br>
-                    Date: ${formatDate(d.date)}<br>
+      tooltip.html(`${d.h_team} ${d.h_goals}-${d.a_goals} ${d.a_team}<br>
+                    ${formatDate(d.date)}<br><hr>
                     Minute: ${d.minute}<br>
                     Shot Outcome: ${d.result}<br>
                     xG: ${d.xG.toFixed(2)}<br>
