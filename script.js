@@ -92,8 +92,11 @@ d3.json('mbappe_shots.json').then(shotsData => {
 
     // Select the shotMap div and append an SVG element to it
     const pitch = shotMap.append('svg')
-      .attr('width', '100%')
-      .attr('height', '100%');
+  .attr('width', window.innerWidth)
+  .attr('height', window.innerHeight)
+  .style('position', 'absolute')
+  .style('top', '0')
+  .style('left', '0');
 
     // Define the pitch's proportions and positions based on the SVG size
     const width = shotMap.node().clientWidth;
@@ -106,28 +109,28 @@ d3.json('mbappe_shots.json').then(shotsData => {
 
     // Draw the pitch outline
 pitch.append('rect')
-.attr('x', 0)
-.attr('y', 0)
-.attr('width', width)
-.attr('height', height)
-.attr('fill', 'none')
-.attr('stroke', 'white');
+  .attr('x', 0)
+  .attr('y', 0)
+  .attr('width', width)
+  .attr('height', height)
+  .attr('fill', 'none')
+  .attr('stroke', 'white');
 
 // Draw the halfway line
 pitch.append('line')
-.attr('x1', width / 2)
-.attr('y1', 0)
-.attr('x2', width / 2)
-.attr('y2', height)
-.attr('stroke', 'white');
+  .attr('x1', width / 2)
+  .attr('y1', 0)
+  .attr('x2', width / 2)
+  .attr('y2', height)
+  .attr('stroke', 'white');
 
 // Draw the center circle
 pitch.append('circle')
-.attr('cx', width / 2)
-.attr('cy', height / 2)
-.attr('r', centerCircleRadius)
-.attr('fill', 'none')
-.attr('stroke', 'white');
+  .attr('cx', width / 2)
+  .attr('cy', height / 2)
+  .attr('r', centerCircleRadius)
+  .attr('fill', 'none')
+  .attr('stroke', 'white');
 
 // Calculate the y position for the penalty and goal areas
 const penaltyYPosition = (height - penaltyAreaHeight) / 2;
@@ -135,35 +138,35 @@ const goalYPosition = (height - goalAreaHeight) / 2;
 
 // Draw the penalty areas
 pitch.append('rect')
-.attr('x', 0)
-.attr('y', penaltyYPosition)
-.attr('width', penaltyAreaWidth)
-.attr('height', penaltyAreaHeight)
-.attr('fill', 'none')
-.attr('stroke', 'white');
+  .attr('x', 0)
+  .attr('y', penaltyYPosition)
+  .attr('width', penaltyAreaWidth)
+  .attr('height', penaltyAreaHeight)
+  .attr('fill', 'none')
+  .attr('stroke', 'white');
 
 pitch.append('rect')
-.attr('x', width - penaltyAreaWidth)
-.attr('y', penaltyYPosition)
-.attr('width', penaltyAreaWidth)
-.attr('height', penaltyAreaHeight)
-.attr('fill', 'none')
-.attr('stroke', 'white');
+  .attr('x', width - penaltyAreaWidth)
+  .attr('y', penaltyYPosition)
+  .attr('width', penaltyAreaWidth)
+  .attr('height', penaltyAreaHeight)
+  .attr('fill', 'none')
+  .attr('stroke', 'white');
 
 // Draw the goal areas
 pitch.append('rect')
-.attr('x', 0)
-.attr('y', goalYPosition)
-.attr('width', goalAreaWidth)
-.attr('height', goalAreaHeight)
-.attr('fill', 'none')
-.attr('stroke', 'white');
+  .attr('x', 0)
+  .attr('y', goalYPosition)
+  .attr('width', goalAreaWidth)
+  .attr('height', goalAreaHeight)
+  .attr('fill', 'none')
+  .attr('stroke', 'white');
 
 pitch.append('rect')
-.attr('x', width - goalAreaWidth)
-.attr('y', goalYPosition)
-.attr('width', goalAreaWidth)
-.attr('height', goalAreaHeight)
-.attr('fill', 'none')
-.attr('stroke', 'white');
+  .attr('x', width - goalAreaWidth)
+  .attr('y', goalYPosition)
+  .attr('width', goalAreaWidth)
+  .attr('height', goalAreaHeight)
+  .attr('fill', 'none')
+  .attr('stroke', 'white');
 });
