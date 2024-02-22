@@ -22,6 +22,12 @@ d3.json('mbappe_shots.json').then(shotsData => {
              d.result === 'BlockedShot' ? 'purple' : 'grey';
   }
 
+  function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const event = new Date(dateString);
+    return event.toLocaleDateString('en-GB', options); // 'en-GB' uses day-month-year order
+}
+
 // Create shot points
 shotMap.selectAll('.shot')
     .data(shotsData)
@@ -60,8 +66,10 @@ shotMap.selectAll('.shot')
           tooltipY = mouseY - tooltipHeight;
       }
   
-      tooltip.html(`Minute: ${d.minute}<br>
-                    Result: ${d.result}<br>
+      tooltip.html(`Result: ${d.h_team} ${d.h_goals}-${d.a_goals} ${d.a_team}<br>
+                    Date: ${formatDate(d.date)}<br>
+                    Minute: ${d.minute}<br>
+                    Shot Outcome: ${d.result}<br>
                     xG: ${d.xG.toFixed(2)}<br>
                     Assisted by: ${d.player_assisted || 'N/A'}<br>
                     Shot Type: ${d.shotType}<br>
@@ -70,7 +78,7 @@ shotMap.selectAll('.shot')
           .style('top', `${tooltipY}px`)
           .transition()
           .duration(200)
-          .style('opacity', 1);
+          .style('opacity', 0.8);
   })
   .on('mouseout', function (d) {
       tooltip.transition()
